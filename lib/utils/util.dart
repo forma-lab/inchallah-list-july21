@@ -12,6 +12,11 @@ saveToken(String token) async {
   await prefs.setString('mytoken', token);
 }
 
+Future<void> deleteToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('mytoken');
+}
+
 Future<String> getToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String token = prefs.getString('mytoken');

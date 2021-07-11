@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inchallahlist/utils/util.dart';
 import 'package:inchallahlist/widgets/shared.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,9 +15,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   var duration = Duration(seconds: 3);
 
-  startTimer() {
-    Timer(duration, () {
-      Navigator.pushReplacementNamed(context, '/login');
+  startTimer() async {
+    await getToken().then((token) {
+      Timer(duration, () {
+        if (token != null) {
+          Navigator.pushReplacementNamed(context, '/home');
+        } else {
+          Navigator.pushReplacementNamed(context, '/login');
+        }
+      });
     });
   }
 

@@ -60,4 +60,50 @@ class TaskApi {
     });
     return tasks;
   }
+
+  static Future<http.Response> updateTask(String id, bool completed) async {
+    var response;
+
+    await getToken().then((token) async {
+      // 1 url
+      var url = Uri.parse('https://api-nodejs-todolist.herokuapp.com/task/$id');
+      // 2 headers
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      // 3 body
+      var body = {
+        "completed": completed,
+      };
+      // 4 method type (POST or GET or PUT)
+      response = await http.put(
+        url,
+        headers: headers,
+        body: jsonEncode(body),
+      );
+    });
+    return response;
+  }
+
+  static Future<http.Response> deleteTask(String id) async {
+    var response;
+
+    await getToken().then((token) async {
+      // 1 url
+      var url = Uri.parse('https://api-nodejs-todolist.herokuapp.com/task/$id');
+      // 2 headers
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+
+      // 4 method type (POST or GET or PUT or DELETE)
+      response = await http.delete(
+        url,
+        headers: headers,
+      );
+    });
+    return response;
+  }
 }
