@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:inchallahlist/services/userApi.dart';
@@ -32,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
       emailController.text,
       passwordController.text,
       usernameController.text,
-    ).then((reponse) {
+    ).then((reponse) async {
       setState(() {
         loading = false;
       });
@@ -41,7 +43,9 @@ class _RegisterPageState extends State<RegisterPage> {
       print(reponse.body);
 
       if (reponse.statusCode == 201) {
-        //TODO Save token
+        var newBody = jsonDecode(reponse.body);
+        await saveToken(newBody['token']);
+
         Navigator.pushReplacementNamed(context, '/home');
       } else {
         CoolAlert.show(

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
     UserAPi.login(
       emailController.text,
       passwordController.text,
-    ).then((reponse) {
+    ).then((reponse) async {
       setState(() {
         loading = false;
       });
@@ -40,7 +42,8 @@ class _LoginPageState extends State<LoginPage> {
       print(reponse.body);
 
       if (reponse.statusCode == 200) {
-        //TODO Save token
+        var newBody = jsonDecode(reponse.body);
+        await saveToken(newBody['token']);
         Navigator.pushReplacementNamed(context, '/home');
       } else {
         CoolAlert.show(

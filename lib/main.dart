@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inchallahlist/screens/addTaskPage.dart';
 import 'package:inchallahlist/screens/homePage.dart';
 import 'package:inchallahlist/screens/loginPage.dart';
 import 'package:inchallahlist/screens/registerPage.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/home': (context) => HomePage(),
+        '/addTask': (context) => AddTaskPage(),
       },
     );
   }
